@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>自訂書籤</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      width: 350px;
+      padding: 10px;
+    }
+    #search-input {
+      width: 95%;
+      padding: 8px;
+      margin-bottom: 10px;
+    }
+    #bookmarks-list {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .bookmark-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+    }
+    .bookmark-item:hover {
+      background-color: #f0f0f0;
+    }
+    .bookmark-item span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .delete-btn {
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-size: 16px;
+      color: #aaa;
+    }
+    .delete-btn:hover {
+      color: #f00;
+    }
+    #add-form {
+      margin-top: 15px;
+      border-top: 1px solid #ccc;
+      padding-top: 10px;
+    }
+    #add-form input {
+      width: 95%;
+      padding: 6px;
+      margin-bottom: 5px;
+    }
+    #add-button {
+      width: 100%;
+      padding: 8px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #add-button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <input type="text" id="search-input" placeholder="搜尋書籤...">
+  <div id="bookmarks-list"></div>
+
+  <div id="add-form">
+    <input type="text" id="new-name" placeholder="名稱">
+    <input type="text" id="new-url" placeholder="URL">
+    <button id="add-button">新增書籤</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "自訂書籤管理器",
+  "version": "1.0",
+  "description": "一個簡單的擴充功能，用於管理自訂書籤並提供搜尋功能。",
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}

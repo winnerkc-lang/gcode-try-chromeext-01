@@ -1,0 +1,19 @@
+{
+  "name": "try-chromeext-01",
+  "version": "1.0.0",
+  "description": "",
+  "main": "background.js",
+  "scripts": {
+    "build": "tsc -p .",
+    "watch": "tsc -p . -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/chrome": "^0.1.24",
+    "typescript": "^5.9.3"
+  }
+}
