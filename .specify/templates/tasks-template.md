@@ -41,6 +41,14 @@ description: "Task list template for feature implementation"
   ============================================================================
 -->
 
+## Constitution Compliance Check
+
+- **I. Specification-Driven**: Do all tasks trace back to `SDD_SPEC.md`?
+- **II. Strict Type Safety**: Are types considered in all relevant tasks?
+- **III. Secure and Private by Design**: Are security and privacy tasks included where necessary?
+- **IV. Clear Separation of Concerns**: Do tasks respect the background/UI architecture?
+- **V. Quality Through Testing**: Are testing tasks included as per the specification?
+
 ## Phase 1: Setup (Shared Infrastructure)
 
 **Purpose**: Project initialization and basic structure

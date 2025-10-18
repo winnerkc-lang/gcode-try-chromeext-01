@@ -5,6 +5,14 @@
 **Status**: Draft  
 **Input**: User description: "$ARGUMENTS"
 
+## Constitution Alignment *(mandatory)*
+
+- **Specification-Driven Development**: This document must be the single source of truth.
+- **Strict Type Safety**: All data structures and interfaces must be clearly defined.
+- **Secure and Private by Design**: User privacy and data security must be addressed.
+- **Clear Separation of Concerns**: The feature design must respect the existing architecture.
+- **Quality Through Testing**: The specification must include a clear testing strategy.
+
 ## User Scenarios & Testing *(mandatory)*
 
 <!--

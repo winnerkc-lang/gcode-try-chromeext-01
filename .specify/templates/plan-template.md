@@ -31,7 +31,11 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- [ ] **I. Specification-Driven Development**: Does the plan align with `SDD_SPEC.md`?
+- [ ] **II. Strict Type Safety**: Does the plan account for `strict` TypeScript and avoid `any`?
+- [ ] **III. Secure and Private by Design**: Does the plan respect user privacy and data security?
+- [ ] **IV. Clear Separation of Concerns**: Does the plan maintain separation between background and UI logic?
+- [ ] **V. Quality Through Testing**: Does the plan include considerations for testability?
 
 ## Project Structure
 
