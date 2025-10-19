@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Google 搜尋",
+    "url": "https://www.google.com"
+  },
+  {
+    "name": "Gemini",
+    "url": "https://gemini.google.com/"
+  },
+  {
+    "name": "GitHub",
+    "url": "https://github.com"
+  }
+]
