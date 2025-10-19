@@ -1,5 +1,6 @@
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
+const WatchExternalFilesPlugin = require('webpack-watch-files-plugin').default;
 
 module.exports = {
   devtool: 'cheap-module-source-map',
@@ -30,7 +31,15 @@ module.exports = {
         { from: 'popup.html', to: 'popup.html' },
         { from: 'icons', to: 'icons' },
         { from: 'src/bookmark.json', to: 'bookmark.json' },
+        { from: 'optPageHello.html', to: 'optPageHello.html' },
       ],
     }),
+    new WatchExternalFilesPlugin({
+      files: [
+        './manifest.json',
+        './optPageHello.html',
+        './popup.html'
+      ]
+    })
   ],
 };
