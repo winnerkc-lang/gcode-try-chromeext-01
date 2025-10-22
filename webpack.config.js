@@ -7,6 +7,7 @@ module.exports = {
   entry: {
     popup: './src/popup.ts',
     background: './src/background.ts',
+    optPageHello: './src/optPageHello.ts',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -28,17 +29,14 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         { from: 'manifest.json', to: 'manifest.json' },
-        { from: 'popup.html', to: 'popup.html' },
-        { from: 'icons', to: 'icons' },
         { from: 'src/bookmark.json', to: 'bookmark.json' },
-        { from: 'optPageHello.html', to: 'optPageHello.html' },
       ],
     }),
     new WatchExternalFilesPlugin({
       files: [
         './manifest.json',
-        './optPageHello.html',
-        './popup.html'
+        './dist/optPageHello.html',
+        './dist/popup.html'
       ]
     })
   ],
