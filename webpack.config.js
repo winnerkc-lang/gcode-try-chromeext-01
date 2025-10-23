@@ -5,9 +5,9 @@ const WatchExternalFilesPlugin = require('webpack-watch-files-plugin').default;
 module.exports = {
   devtool: 'cheap-module-source-map',
   entry: {
-    popup: './src/popup.ts',
-    background: './src/background.ts',
-    optPageHello: './src/optPageHello.ts',
+    popup: './src/popup/popup.ts',
+    background: './src/servicework/background.ts',
+    optPageHello: './src/page/optPageHello.ts'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -29,14 +29,16 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         { from: 'manifest.json', to: 'manifest.json' },
-        { from: 'src/bookmark.json', to: 'bookmark.json' },
+        { from: 'src/content/bookmark.json', to: 'bookmark.json' },
+        { from: 'src/popup/popup.html', to: 'popup.html' },
+        { from: 'src/page/optPageHello.html', to: 'optPageHello.html' },
       ],
     }),
     new WatchExternalFilesPlugin({
       files: [
         './manifest.json',
-        './dist/optPageHello.html',
-        './dist/popup.html'
+        './src/page/optPageHello.html',
+        './src/popup/popup.html'
       ]
     })
   ],

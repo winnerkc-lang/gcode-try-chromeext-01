@@ -1,8 +1,8 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
-/*!*****************************!*\
-  !*** ./src/optPageHello.ts ***!
-  \*****************************/
+/*!**********************************!*\
+  !*** ./src/page/optPageHello.ts ***!
+  \**********************************/
 
 document.addEventListener('DOMContentLoaded', () => {
     const num1Input = document.getElementById('num1');

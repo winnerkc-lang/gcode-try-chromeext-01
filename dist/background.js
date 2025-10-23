@@ -1,8 +1,8 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
-/*!***************************!*\
-  !*** ./src/background.ts ***!
-  \***************************/
+/*!***************************************!*\
+  !*** ./src/servicework/background.ts ***!
+  \***************************************/
 
 chrome.runtime.onInstalled.addListener(() => {
     console.log('Extension installed');

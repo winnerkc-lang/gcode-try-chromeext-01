@@ -1,8 +1,8 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
-/*!**********************!*\
-  !*** ./src/popup.ts ***!
-  \**********************/
+/*!****************************!*\
+  !*** ./src/popup/popup.ts ***!
+  \****************************/
 
 console.log('Popup script loaded');
 document.addEventListener('DOMContentLoaded', () => {
