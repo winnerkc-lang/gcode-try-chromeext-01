@@ -1,38 +1,57 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/servicework/background.ts":
 /*!***************************************!*\
   !*** ./src/servicework/background.ts ***!
   \***************************************/
+/***/ (function() {
 
-chrome.runtime.onInstalled.addListener(() => {
-    console.log('Extension installed');
-});
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    console.log('Received message:', request);
-    if (request.action === 'addNumbers') {
-        const result = request.num1 + request.num2;
-        sendResponse({ result });
-    }
-    else if (request.action === 'callPostmanEcho') {
-        console.log('Calling Postman Echo API');
-        fetch('https://postman-echo.com/post', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ name: request.name })
-        })
-            .then(response => response.json())
-            .then(data => {
-            console.log('Postman Echo API response:', data);
-            sendResponse({ data });
-        })
-            .catch(error => sendResponse({ error: error.message }));
-        return true; // Indicates that the response is sent asynchronously
-    }
-    return true; // Keep the message channel open for async response
-});
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+// src/servicework/background.ts
+console.log('background script loaded');
+chrome.runtime.onInstalled.addListener((details) => __awaiter(void 0, void 0, void 0, function* () {
+    if (details.reason === 'install' || details.reason === 'update') {
+        try {
+            const response = yield fetch(chrome.runtime.getURL('bookmark.json'));
+            const newBookmarksData = yield response.json();
+            chrome.storage.local.get('bookmarks', (result) => {
+                const currentBookmarksData = result.bookmarks;
+                if (!currentBookmarksData || newBookmarksData.version > currentBookmarksData.version) {
+                    chrome.storage.local.set({ bookmarks: newBookmarksData }, () => {
+                        console.log('Bookmarks updated in local storage.');
+                    });
+                }
+            });
+        }
+        catch (error) {
+            console.error('Error loading or parsing bookmark.json:', error);
+        }
+    }
+}));
+
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	var __webpack_exports__ = {};
+/******/ 	__webpack_modules__["./src/servicework/background.ts"].call(__webpack_exports__);
+/******/ 	
 /******/ })()
 ;
 //# sourceMappingURL=background.js.map

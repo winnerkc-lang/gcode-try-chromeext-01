@@ -1,14 +1,32 @@
-<h1>Hello Options Page 1</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Options</title>
+    <style>
+        ul { list-style: none; padding: 0; }
+        li { display: flex; align-items: center; margin-bottom: 5px; }
+        li span { flex-grow: 1; }
+        button { margin-left: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Bookmarks</h1>
 
-<input type="number" id="num1" placeholder="Enter first number">
-<input type="number" id="num2" placeholder="Enter second number">
-<button id="addButton">Add</button>
-<div id="result"></div>
+    <h2>Add/Edit Bookmark</h2>
+    <form id="add-edit-form" novalidate>
+        <input type="hidden" id="bookmark-id">
+        <label for="bookmark-name">Name:</label>
+        <input type="text" id="bookmark-name" required>
+        <label for="bookmark-url">URL:</label>
+        <input type="url" id="bookmark-url" required>
+        <div id="form-error" style="color: #b00020; margin-top:6px; min-height:18px;" aria-live="polite"></div>
+        <button type="submit" id="save-button">Save</button>
+        <span id="op-status" style="margin-left:10px; color: #006400;" aria-live="polite"></span>
+    </form>
 
-<hr>
+    <h2>My Bookmarks</h2>
+    <div id="bookmarks-container"></div>
 
-<input type="text" id="nameInput" placeholder="Enter a name">
-<button id="echoButton">Call Postman Echo</button>
-<pre id="echoResult"></pre>
-
-<script src="optPageHello.js"></script>
+    <script src="optPageHello.js"></script>
+</body>
+</html>
