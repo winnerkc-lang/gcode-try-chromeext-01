@@ -52,7 +52,11 @@ async function initBookmarksFromFile() {
     const newVersion = Number.isFinite(Number(newBookmarks.version)) ? Math.max(0, Math.floor(Number(newBookmarks.version))) : 0;
 
     if (!current || newVersion > currentVersion) {
-      const toStore = { version: newVersion, items: Array.isArray(newBookmarks.items) ? newBookmarks.items : [] };
+      const itemsWithIds = (Array.isArray(newBookmarks.items) ? newBookmarks.items : []).map((item, index) => ({
+        ...item,
+        id: item.id || Date.now() + index,
+      }));
+      const toStore = { version: newVersion, items: itemsWithIds };
       chrome.storage.local.set({ bookmarks: toStore }, () => {
         console.log('Bookmarks initialized/updated in local storage. (version)', newVersion);
       });

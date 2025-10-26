@@ -1,13 +1,16 @@
 [
   {
+    "id": "9105e1b5-2bf0-4924-8b35-9fac5a38a1c6",
     "name": "Google 搜尋",
     "url": "https://www.google.com"
   },
   {
+    "id": "ff1c6526-754c-4749-b5d3-ff38f10069e7",
     "name": "Gemini",
     "url": "https://gemini.google.com/"
   },
   {
+    "id": "0be06368-e73a-4284-bd9a-b7a3d300f9c4",
     "name": "GitHub",
     "url": "https://github.com"
   }

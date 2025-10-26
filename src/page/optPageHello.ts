@@ -2,7 +2,7 @@
 console.log('options page loaded');
 
 interface Bookmark {
-  id: number;
+  id: string;
   name: string;
   url: string;
 }
@@ -68,7 +68,7 @@ function renderBookmarks() {
       data.version = typeof stored.version === 'number' ? stored.version : 0;
       data.bookmarks = stored.items.map((it) => {
         // Normalize each item to Bookmark shape, ensure id exists
-        const id = typeof it.id === 'number' ? it.id : Date.now() + Math.floor(Math.random() * 1000);
+        const id = it.id || crypto.randomUUID();
         const name = it.name || it.title || '';
         const url = it.url || it.href || '';
         return { id, name, url } as Bookmark;
@@ -85,12 +85,12 @@ function renderBookmarks() {
 
         const editButton = document.createElement('button');
         editButton.textContent = 'Edit';
-        editButton.dataset.id = bookmark.id.toString();
+        editButton.dataset.id = bookmark.id;
         editButton.addEventListener('click', handleEdit);
 
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete';
-        deleteButton.dataset.id = bookmark.id.toString();
+        deleteButton.dataset.id = bookmark.id;
         deleteButton.addEventListener('click', handleDelete);
 
         li.appendChild(text);
@@ -105,25 +105,36 @@ function renderBookmarks() {
   });
 }
 
+/**
+ * Handles the click event of the "Edit" button for a bookmark.
+ *
+ * This function retrieves the bookmark's ID from the button's dataset,
+ * fetches the bookmark data from `chrome.storage.local`, and populates the
+ * add/edit form with the bookmark's name and URL.
+ *
+ * @param event The MouseEvent triggered by clicking the "Edit" button.
+ */
 function handleEdit(event: MouseEvent) {
   const target = event.target as HTMLButtonElement;
-  const id = Number(target.dataset.id);
+  const id = target.dataset.id;
 
   chrome.storage.local.get('bookmarks', (result) => {
-    const bookmarksData: BookmarkData | undefined = result.bookmarks;
-    const bookmarkToEdit = bookmarksData?.bookmarks?.find(b => b.id === id);
-    if (bookmarkToEdit) {
-      idInput.value = bookmarkToEdit.id.toString();
-      nameInput.value = bookmarkToEdit.name;
-      urlInput.value = bookmarkToEdit.url;
-      validateForm();
+    const stored: StoredBookmarks | undefined = result.bookmarks;
+    if (stored && Array.isArray(stored.items)) {
+      const bookmarkToEdit = stored.items.find(b => b.id === id);
+      if (bookmarkToEdit) {
+        idInput.value = bookmarkToEdit.id;
+        nameInput.value = bookmarkToEdit.name || bookmarkToEdit.title || '';
+        urlInput.value = bookmarkToEdit.url || bookmarkToEdit.href || '';
+        validateForm();
+      }
     }
   });
 }
 
 function handleDelete(event: MouseEvent) {
     const target = event.target as HTMLButtonElement;
-    const id = Number(target.dataset.id);
+    const id = target.dataset.id;
     // Confirm deletion
     const ok = globalThis.confirm('Delete this bookmark?');
     if (!ok) return;
@@ -131,10 +142,7 @@ function handleDelete(event: MouseEvent) {
     chrome.storage.local.get('bookmarks', (result) => {
       const stored: StoredBookmarks | undefined = result.bookmarks;
       if (stored && Array.isArray(stored.items)) {
-        const remaining = stored.items.filter((it: any) => {
-          const itemId = typeof it.id === 'number' ? it.id : null;
-          return itemId !== id;
-        });
+        const remaining = stored.items.filter((it: any) => it.id !== id);
           const updated: StoredBookmarks = { version: Math.floor(Date.now()), items: remaining };
         chrome.storage.local.set({ bookmarks: updated }, () => {
           console.log('Bookmark deleted.');
@@ -148,7 +156,7 @@ function handleDelete(event: MouseEvent) {
 form.addEventListener('submit', (event) => {
   event.preventDefault();
   if (!validateForm()) return;
-  const id = Number(idInput.value);
+  const id = idInput.value;
   const name = nameInput.value.trim();
   const url = urlInput.value.trim();
 
@@ -161,12 +169,12 @@ form.addEventListener('submit', (event) => {
     }
 
     if (id) { // Editing existing bookmark
-      const idx = items.findIndex((it) => (typeof it.id === 'number' ? it.id : null) === id);
+      const idx = items.findIndex((it) => it.id === id);
       if (idx > -1) {
         items[idx] = { ...items[idx], id, name, url };
       }
     } else { // Adding new bookmark
-      const newId = Date.now();
+      const newId = crypto.randomUUID();
       items.push({ id: newId, name, url });
     }
 

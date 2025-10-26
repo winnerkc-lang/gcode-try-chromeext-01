@@ -13,13 +13,15 @@
     <h1>Bookmarks</h1>
 
     <h2>Add/Edit Bookmark</h2>
-    <form id="add-edit-form">
+    <form id="add-edit-form" novalidate>
         <input type="hidden" id="bookmark-id">
         <label for="bookmark-name">Name:</label>
         <input type="text" id="bookmark-name" required>
         <label for="bookmark-url">URL:</label>
         <input type="url" id="bookmark-url" required>
-        <button type="submit">Save</button>
+        <div id="form-error" style="color: #b00020; margin-top:6px; min-height:18px;" aria-live="polite"></div>
+        <button type="submit" id="save-button">Save</button>
+        <span id="op-status" style="margin-left:10px; color: #006400;" aria-live="polite"></span>
     </form>
 
     <h2>My Bookmarks</h2>
