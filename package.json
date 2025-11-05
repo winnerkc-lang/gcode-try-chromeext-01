@@ -14,5 +14,11 @@
     "webpack": "^5.102.1",
     "webpack-cli": "^4.10.0",
     "webpack-watch-files-plugin": "^1.2.1"
+  },
+  "dependencies": {
+    "@fontsource/material-icons": "^5.2.7",
+    "css-loader": "^7.1.2",
+    "material-components-web": "^14.0.0",
+    "style-loader": "^4.0.0"
   }
 }

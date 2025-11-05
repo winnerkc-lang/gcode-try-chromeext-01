@@ -26,6 +26,10 @@ module.exports = (env, argv) => {
           use: 'ts-loader',
           exclude: /node_modules/,
         },
+        {
+          test: /\.css$/i,
+          use: ["style-loader", "css-loader"],
+        },
       ],
     },
     plugins: [
@@ -35,6 +39,8 @@ module.exports = (env, argv) => {
           { from: 'src/content/bookmark.json', to: 'bookmark.json' },
           { from: 'src/popup/popup.html', to: 'popup.html' },
           { from: 'src/page/optPageHello.html', to: 'optPageHello.html' },
+          { from: 'node_modules/material-components-web/dist/material-components-web.min.css', to: 'material-components-web.min.css' },
+          { from: 'node_modules/material-components-web/dist/material-components-web.min.js', to: 'material-components-web.min.js' },
         ],
       }),
       new WatchExternalFilesPlugin({

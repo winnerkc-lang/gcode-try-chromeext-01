@@ -1,3 +1,5 @@
+declare const mdc: any;
+
 console.log('Popup script loaded');
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -7,4 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
       chrome.runtime.openOptionsPage();
     });
   }
+
+  const buttons = [].map.call(document.querySelectorAll('.mdc-button'), (el: Element) => {
+    return new mdc.ripple.MDCRipple(el);
+  });
 });

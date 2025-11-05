@@ -1,5 +1,6 @@
 # OpenSpec Instructions
 
+回應訊息時,僅量以繁體中文回應
 Instructions for AI coding assistants using OpenSpec for spec-driven development.
 
 ## TL;DR Quick Checklist

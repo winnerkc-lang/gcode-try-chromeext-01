@@ -1,4 +1,6 @@
 // src/page/optPageHello.ts
+import '@fontsource/material-icons';
+declare const mdc: any;
 console.log('options page loaded');
 
 interface Bookmark {
@@ -66,7 +68,7 @@ function renderBookmarks() {
 
     if (stored && Array.isArray(stored.items)) {
       data.version = typeof stored.version === 'number' ? stored.version : 0;
-      data.bookmarks = stored.items.map((it) => {
+      data.bookmarks = stored.items.map((it: any) => {
         // Normalize each item to Bookmark shape, ensure id exists
         const id = it.id || crypto.randomUUID();
         const name = it.name || it.title || '';
@@ -77,28 +79,47 @@ function renderBookmarks() {
 
     if (data.bookmarks.length > 0) {
       const ul = document.createElement('ul');
+      ul.className = 'mdc-list';
       for (const bookmark of data.bookmarks) {
         const li = document.createElement('li');
+        li.className = 'mdc-list-item';
 
         const text = document.createElement('span');
-        text.textContent = `${bookmark.name} - ${bookmark.url}`;
+        text.className = 'mdc-list-item__text';
+        const primaryText = document.createElement('span');
+        primaryText.className = 'mdc-list-item__primary-text';
+        primaryText.textContent = bookmark.name;
+        const secondaryText = document.createElement('span');
+        secondaryText.className = 'mdc-list-item__secondary-text';
+        secondaryText.textContent = bookmark.url;
+        text.appendChild(primaryText);
+        text.appendChild(secondaryText);
+
+
+        const meta = document.createElement('span');
+        meta.className = 'mdc-list-item__meta';
 
         const editButton = document.createElement('button');
-        editButton.textContent = 'Edit';
+        editButton.className = 'mdc-icon-button material-icons';
+        editButton.textContent = 'edit';
         editButton.dataset.id = bookmark.id;
         editButton.addEventListener('click', handleEdit);
 
         const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Delete';
+        deleteButton.className = 'mdc-icon-button material-icons';
+        deleteButton.textContent = 'delete';
         deleteButton.dataset.id = bookmark.id;
         deleteButton.addEventListener('click', handleDelete);
 
         li.appendChild(text);
-        li.appendChild(editButton);
-        li.appendChild(deleteButton);
+        meta.appendChild(editButton);
+        meta.appendChild(deleteButton);
+        li.appendChild(meta);
         ul.appendChild(li);
       }
       container.appendChild(ul);
+      const list = new mdc.list.MDCList(ul);
+      const listItemRipples = list.listElements.map((listItemEl: Element) => new mdc.ripple.MDCRipple(listItemEl));
     } else {
       container.textContent = 'No bookmarks found.';
     }
@@ -169,7 +190,7 @@ form.addEventListener('submit', (event) => {
     }
 
     if (id) { // Editing existing bookmark
-      const idx = items.findIndex((it) => it.id === id);
+      const idx = items.findIndex((it: any) => it.id === id);
       if (idx > -1) {
         items[idx] = { ...items[idx], id, name, url };
       }
@@ -196,4 +217,20 @@ if (urlInput) urlInput.addEventListener('input', () => validateForm());
 // disable save until valid initially
 if (saveButton) saveButton.disabled = true;
 
-document.addEventListener('DOMContentLoaded', renderBookmarks);
+document.addEventListener('DOMContentLoaded', () => {
+  renderBookmarks();
+
+  const textFields = [].map.call(document.querySelectorAll('.mdc-text-field'), (el: Element) => {
+    return new mdc.textField.MDCTextField(el);
+  });
+
+  const buttons = [].map.call(document.querySelectorAll('.mdc-button'), (el: Element) => {
+    return new mdc.ripple.MDCRipple(el);
+  });
+
+  const iconButtonRipples = [].map.call(document.querySelectorAll('.mdc-icon-button'), (el: Element) => {
+    const ripple = new mdc.ripple.MDCRipple(el);
+    ripple.unbounded = true;
+    return ripple;
+  });
+});
